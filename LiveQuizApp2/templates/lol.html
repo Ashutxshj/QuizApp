@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In - Quiz App</title>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js"></script>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f1f1f1;
+      }
+      .container {
+        text-align: center;
+        background: #fff;
+        padding: 30px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+      h1 {
+        color: #333;
+      }
+      #google-sign-in-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #db4437;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+      #google-sign-in-btn:hover {
+        background-color: #c1351d;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome to Quiz App</h1>
+      <p>Please sign in with Google to continue</p>
+      <button id="google-sign-in-btn">Sign in with Google</button>
+    </div>
+
+    <script>
+      // Firebase configuration
+      const firebaseConfig = {
+      apiKey: "AIzaSyBlYXzStChNSU-kQdGC5u0gEVZGiT6q4f4",
+      authDomain: "quizapp-9d165.firebaseapp.com",
+      projectId: "quizapp-9d165",
+      storageBucket: "quizapp-9d165.firebasestorage.app",
+      messagingSenderId: "1038062078381",
+      appId: "1:1038062078381:web:ed2967b06f2ed1d88cf924",
+    };
+
+      // Initialize Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+      const auth = firebase.getAuth(app);
+
+      // Google Sign-In
+      async function signInWithGoogle() {
+        const provider = new firebase.GoogleAuthProvider();
+        try {
+          const result = await firebase.signInWithPopup(auth, provider);
+          const user = result.user;
+
+          window.location.href = "quiz.html"; // Change this to your quiz page's URL
+        } catch (error) {
+          console.error("Error signing in with Google:", error);
+        }
+      }
+
+      // Sign-In button event listener
+      document.getElementById('google-sign-in-btn').addEventListener('click', signInWithGoogle);
+    </script>
+  </body>
+</html>
